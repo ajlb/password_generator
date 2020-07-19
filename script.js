@@ -1,8 +1,9 @@
+function randomizer(i) {
 /*This is our randomizer machine
 it takes input in the form of one of the character types
 then returns and randomly selected char type using JS Math functions
 */
-function randomizer(i) {
+
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const numbers = [0,1,2,3,4,5,6,7,8,9];
   const specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; //remember to escape special chars like " and \ with a single \
@@ -21,7 +22,7 @@ function randomizer(i) {
 
 function getInput() {
   //initialize prompt user for input to zero and emptystring
-  let inputLength = 0;
+  let passLength = 0;
   let inputTypes = "";
 
   /* -------- Let's do input validation -------------
@@ -32,8 +33,8 @@ function getInput() {
   ----------------------------------------------------*/
 
   //check inputLenth meets validation requirements, if no then continue to prompt for valid input 
-  while (inputLength <8 || inputLength > 128) {
-    inputLength = parseInt(prompt("Input the number of charachters for your password. \r\nIt must be a minimum of 8 and maximum of 128.","8"));
+  while (passLength <8 || passLength > 128) {
+    passLength = parseInt(prompt("Input the number of charachters for your password. \r\nIt must be a minimum of 8 and maximum of 128.","8"));
   }
 
   //check inputTypes meet validation requirements, if no then continue to prompt for valid input
@@ -46,9 +47,27 @@ function getInput() {
   
   // lets put the charTypes into an array
   // while stripping the input string of any blank spaces added during input
-  let charTypes = (inputTypes.replace(/\s*/g, '')).split("");
+  inputTypes = (inputTypes.replace(/\s*/g, '')).split("");
   // console.log(charTypes);
-  return (inputLength, charTypes);
+  return [passLength, inputTypes];
+}
+
+function evenMoreRandom(inputString) {
+  /* ----Shuffle the results of makeItSo------
+    Since makeItSo is generated using 
+    simple concatenation this function ensures 
+    the first n chars of the password are 
+    not necessarily always equivalent to the 
+    input 
+    Here we use the Fisher-Yates algorithm
+  --------------------------------------------*/
+  inputString = inputString.split("");
+  for (let i = inputString.length -1; i > 0; i--){
+    let j = Math.floor(Math.random() * (i + 1)); // generate random index from 0 to i
+    [inputString[i], inputString[j]] = [inputString[j], inputString[i]];// swap elements array[i] and array[j]
+  }
+  // console.log(inputString.join());
+  return inputString.join("");
 }
 
 function generatePassword(){
@@ -62,7 +81,7 @@ function generatePassword(){
   let makeItSo = ""; //initialize password to empty string
 
   //get inputs
-  getInput();
+  const [inputLength, charTypes] = getInput();
 
   //using a for/of loop on our charTypes array to ensure we get at least one of each of the chosen charTypes
   for (i of charTypes){
@@ -77,7 +96,7 @@ function generatePassword(){
     makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)])
     // console.log(makeItSo);
   }
-
+  makeItSo = evenMoreRandom(makeItSo);
   return makeItSo;  // finally return the password to the browser
 }
 
