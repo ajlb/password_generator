@@ -9,11 +9,11 @@ function randomizer(i) {
 
   switch (i) {
     case "L":
-      return alphabet[(Math.floor(Math.random() * 26))];
+      return alphabet[(Math.floor(Math.random() * alphabet.length))];
     case "U":
-      return (alphabet[(Math.floor(Math.random() * 26))]).toUpperCase();
+      return (alphabet[(Math.floor(Math.random() * alphabet.length))]).toUpperCase();
     case "N":
-      return numbers[Math.floor(Math.random() * 10)];
+      return numbers[Math.floor(Math.random() * numbers.length)];
     case "S":
       return specialChar[(Math.floor(Math.random() * (specialChar.length)))];
   }
