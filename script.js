@@ -3,9 +3,9 @@ it takes input in the form of one of the character types
 then returns and randomly selected char type using JS Math functions
 */
 function randomizer(i) {
-  var alphabet = 'abcdefghijklmnopqrstuvwxyz';
-  var numbers = [0,1,2,3,4,5,6,7,8,9];
-  var specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; //remember to escape special chars like " and \ with a single \
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const numbers = [0,1,2,3,4,5,6,7,8,9];
+  const specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; //remember to escape special chars like " and \ with a single \
 
   switch (i) {
     case "L":
@@ -19,10 +19,10 @@ function randomizer(i) {
   }
 }
 
-function generatePassword(){
+function getInput() {
   //initialize prompt user for input to zero and emptystring
-  var inputLength = 0;
-  var inputTypes = "";
+  let inputLength = 0;
+  let inputTypes = "";
 
   /* -------- Let's do input validation -------------
     on both the password length 
@@ -35,41 +35,47 @@ function generatePassword(){
   while (inputLength <8 || inputLength > 128) {
     inputLength = parseInt(prompt("Input the number of charachters for your password. \r\nIt must be a minimum of 8 and maximum of 128.","8"));
   }
-  // exiting validation loop with valid input we can utilize
-  console.log(inputLength);
 
   //check inputTypes meet validation requirements, if no then continue to prompt for valid input
   while (!inputTypes.includes("L") && !inputTypes.includes("U") && !inputTypes.includes("N") && !inputTypes.includes("S") ){
     inputTypes = prompt("Input the types of characters you want included. \r\nType one or more of the following to choose that type: \r\nL for lowercase \r\nU for uppercase \r\nN for number \r\nS for special characters", "LUNS");
+    if (inputTypes.length > 4 ){
+      alert ("You have input too many character types. Please try again.")
+    }
   }
-  // exiting while loop with valid input we can utilize
+  
   // lets put the charTypes into an array
   // while stripping the input string of any blank spaces added during input
-  var charTypes = (inputTypes.replace(/\s*/g, '')).split("");
-  console.log(charTypes);
+  let charTypes = (inputTypes.replace(/\s*/g, '')).split("");
+  // console.log(charTypes);
+  return (inputLength, charTypes);
+}
 
-
-  /* ----- Let's Build the Password Now -------
+function generatePassword(){
+  
+  /* ----- Let's Build the Password -------
   Here is where the magic happens
-  We need to generate a password given the 
-  valid inputs and ensure that it is
-  random enough to be secure 
+  We need to generate a password given two 
+  valid inputs: length and character type to be incuded
   ---------------------------------------------*/
-  var i; //index for our array
-  var makeItSo = "";
+  let i; //initialize the index for our array of charTypes
+  let makeItSo = ""; //initialize password to empty string
+
+  //get inputs
+  getInput();
 
   //using a for/of loop on our charTypes array to ensure we get at least one of each of the chosen charTypes
   for (i of charTypes){
     makeItSo += randomizer(i);
-    console.log(makeItSo);
+    // console.log(makeItSo);
   }
 
   // now fill out the rest of the password with random values until we reach desired length
   for (let lenCounter = makeItSo.length; lenCounter < inputLength; lenCounter++) {
-    var randoChoices = "LUNS".split("");
-    console.log(randoChoices);
+    let randoChoices = "LUNS".split("");
+    // console.log(randoChoices);
     makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)])
-    console.log(makeItSo);
+    // console.log(makeItSo);
   }
 
   return makeItSo;  // finally return the password to the browser
