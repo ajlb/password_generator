@@ -18,7 +18,7 @@ This is a random password generator. It takes two inputs: password length and ch
 
 ## Usage ##
 
-Anyone is free to find the source code here on GitHub. You can access the files through cloning the repo. To run the password generator visit the link underneath the website screenshot. It should generate a random password based on given inputs for which you will be prompted to supply. Password length must be an integer between 8 and 128 (inclusive) and you must choose at least one but not more than 4 character types: lowercase, uppercase, number, special character. The resulting password will include at least the chosen character types combined with a random selection of other character types.
+Anyone is free to find the source code here on GitHub. You can access the files through cloning the repo. To run the password generator visit the URL beneath the website screenshot. The site should generate a random password based on given inputs for which you will be prompted. Password length must be an integer between 8 and 128 (inclusive) and you must choose at least one but not more than 4 character types: lowercase, uppercase, number, special character. The resulting password will include at least the chosen character types combined with a random selection of other character types.
 
 ## Credits ##
 
