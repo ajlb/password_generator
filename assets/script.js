@@ -6,7 +6,7 @@ then returns and randomly selected char type using JS Math functions
 
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const numbers = [0,1,2,3,4,5,6,7,8,9];
-  const specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; //remember to escape special chars like " and \ with a single \
+  const specialChar = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; // remember to escape special chars like " and \ with a single \
 
   switch (i) {
     case "L":
@@ -21,7 +21,7 @@ then returns and randomly selected char type using JS Math functions
 }
 
 function getInput() {
-  //initialize prompt user for input to zero and emptystring
+  // initialize prompt user for input to zero and emptystring
   let passLength = 0;
   let inputTypes = "";
 
@@ -32,22 +32,33 @@ function getInput() {
     at least one character type should be chosen
   ----------------------------------------------------*/
 
-  //check inputLenth meets validation requirements, if no then continue to prompt for valid input 
+  // check inputLenth meets validation requirements, if no then continue to prompt for valid input 
   while (passLength <8 || passLength > 128) {
     passLength = parseInt(prompt("Input the number of charachters for your password. \r\nIt must be a minimum of 8 and maximum of 128.","8"));
-  }
-
-  //check inputTypes meet validation requirements, if no then continue to prompt for valid input
-  while (!inputTypes.includes("L") && !inputTypes.includes("U") && !inputTypes.includes("N") && !inputTypes.includes("S") ){
-    inputTypes = prompt("Input the types of characters you want included. \r\nType one or more of the following to choose that type: \r\nL for lowercase \r\nU for uppercase \r\nN for number \r\nS for special characters", "LUNS");
-    if (inputTypes.length > 4 ){
-      alert ("You have input too many character types. Please try again.")
+    if (isNaN(passLength)|| passLength == null){
+      alert ("you must input a valid number. Please try again.")
+      passLength = 0;
     }
   }
-  
-  // lets put the charTypes into an array
-  // while stripping the input string of any blank spaces added during input
-  inputTypes = (inputTypes.replace(/\s*/g, '')).split("");
+
+  // check inputTypes meet validation requirements, if no then continue to prompt for valid input
+  while (!inputTypes.includes("L") && !inputTypes.includes("U") && !inputTypes.includes("N") && !inputTypes.includes("S") ){
+    inputTypes = prompt("Input the types of characters you want included. \r\nType one or more of the following to choose that type: \r\nL for lowercase \r\nU for uppercase \r\nN for number \r\nS for special characters", "LUNS");
+    
+    // lets remove any nonvalid characters from the input string
+    let validator = inputTypes.match(/(L|U|N|S)/g);
+    // console.log(validator);
+    if (validator == null ) {
+      alert ("You must input a value of L, U, N and/or S. Please try again.")
+      inputTypes = "";
+    } else if(validator.length >4){
+      alert ("You have input too many character types. Please try again.")
+      inputTypes = "";
+    } else {
+      inputTypes = validator;
+      // console.log(inputTypes);
+    }
+  }
   // console.log(charTypes);
   return [passLength, inputTypes];
 }
@@ -80,8 +91,9 @@ function generatePassword(){
   let i; //initialize the index for our array of charTypes
   let makeItSo = ""; //initialize password to empty string
 
-  //get inputs
+  // get inputs
   const [inputLength, charTypes] = getInput();
+  // console.log(charTypes);
 
   //using a for/of loop on our charTypes array to ensure we get at least one of each of the chosen charTypes
   for (i of charTypes){
@@ -92,9 +104,9 @@ function generatePassword(){
   // now fill out the rest of the password with random values until we reach desired length
   for (let lenCounter = makeItSo.length; lenCounter < inputLength; lenCounter++) {
     let randoChoices = "LUNS".split("");
-    // console.log(randoChoices);
+    console.log(randoChoices);
     makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)])
-    // console.log(makeItSo);
+    console.log(makeItSo);
   }
   makeItSo = evenMoreRandom(makeItSo);
   return makeItSo;  // finally return the password to the browser
