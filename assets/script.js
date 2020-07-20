@@ -43,7 +43,7 @@ function getInput() {
 
   // check inputTypes meet validation requirements, if no then continue to prompt for valid input
   while (!inputTypes.includes("L") && !inputTypes.includes("U") && !inputTypes.includes("N") && !inputTypes.includes("S") ){
-    inputTypes = prompt("Input the types of characters you want included. \r\nType one or more of the following to choose that type: \r\nL for lowercase \r\nU for uppercase \r\nN for number \r\nS for special characters", "LUNS");
+    inputTypes = (prompt("Input the types of characters you want included. \r\nType one or more of the following to choose that type: \r\nL for lowercase \r\nU for uppercase \r\nN for number \r\nS for special characters", "LUNS")).toUpperCase();
     
     // lets remove any nonvalid characters from the input string
     let validator = inputTypes.match(/(L|U|N|S)/g);
