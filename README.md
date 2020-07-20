@@ -1,6 +1,6 @@
 # Random Password Generator #
 ![Screenshot of index.html](./assets/Password_Generator.png)
-https://n-lambert.github.io/passwordGenerator/
+### https://n-lambert.github.io/passwordGenerator/ ###
 
 ## Table Of Contents ##
 
