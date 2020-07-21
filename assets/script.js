@@ -104,10 +104,9 @@ function generatePassword(){
 
   // now fill out the rest of the password with random values until we reach desired length
   for (let lenCounter = makeItSo.length; lenCounter < inputLength; lenCounter++) {
-    let randoChoices = "LUNS".split("");
-    console.log(randoChoices);
-    makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)])
-    console.log(makeItSo);
+    let randoChoices = charTypes;
+    makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)]);
+    // console.log(makeItSo);
   }
   makeItSo = evenMoreRandom(makeItSo);
   return makeItSo;  // finally return the password to the browser
