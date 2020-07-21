@@ -48,7 +48,6 @@ function getInput() {
     inputTypes = inputTypes.toUpperCase();
     // lets remove any nonvalid characters from the input string
     let validator = inputTypes.match(/(L|U|N|S)/g);
-    // console.log(validator);
     if (validator == null ) {
       alert ("You must input a value of L, U, N and/or S. Please try again.")
       inputTypes = "";
@@ -57,10 +56,9 @@ function getInput() {
       inputTypes = "";
     } else {
       inputTypes = validator;
-      // console.log(inputTypes);
     }
   }
-  // console.log(charTypes);
+  
   return [passLength, inputTypes];
 }
 
@@ -78,7 +76,6 @@ function evenMoreRandom(inputString) {
     let j = Math.floor(Math.random() * (i + 1)); // generate random index from 0 to i
     [inputString[i], inputString[j]] = [inputString[j], inputString[i]];// swap elements array[i] and array[j]
   }
-  // console.log(inputString.join());
   return inputString.join("");
 }
 
@@ -94,19 +91,16 @@ function generatePassword(){
 
   // get inputs
   const [inputLength, charTypes] = getInput();
-  // console.log(charTypes);
 
   //using a for/of loop on our charTypes array to ensure we get at least one of each of the chosen charTypes
   for (i of charTypes){
     makeItSo += randomizer(i);
-    // console.log(makeItSo);
   }
 
   // now fill out the rest of the password with random values until we reach desired length
   for (let lenCounter = makeItSo.length; lenCounter < inputLength; lenCounter++) {
-    let randoChoices = charTypes;
+    let randoChoices = charTypes; // only use chosen types to fill rest of length
     makeItSo += randomizer(randoChoices[Math.floor(Math.random() * randoChoices.length)]);
-    // console.log(makeItSo);
   }
   makeItSo = evenMoreRandom(makeItSo);
   return makeItSo;  // finally return the password to the browser
